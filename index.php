@@ -1,6 +1,6 @@
 <?php 
 /*	
-	decription : validate Phone , Email
+	decription : validate Phone , Email , string
 */
 	function is_mobile( $phone ){
 
@@ -8,18 +8,18 @@
 		if (isset($phone) ){
 			
 			// This function converts all characters that are applicable to HTML entity.  
-			$phones = htmlspecialchars( strip_tags( trim (htmlentities ( $phone , " \t\n\r\0\x0B-" ) ) ) );
+			$phones = htmlspecialchars( strip_tags( trim  ( $phone , " \t\n\r\0\x0B-" ) ) );
 		
 				// IF FIND 09 IN STRING
 				if( preg_match("/^09[0-9]{9}$/", $phones )) {
 					
 					// IF FOUND 09
-					if( strpos( $phones,'09' !== false ) ) {
-						
+					
+					if( strpos( $phones,'09' ) !== false) {		
+					
 						// IF NUMBERIC 
 						if( is_numeric($phones) ){
 							
-							// IF CHECK VALUE VALIDATE RETURN PHONE NUMBER
 							return $phones;
 							
 						}
@@ -92,10 +92,10 @@
 		
 		if ( isset( $str ) ) {
 			
-			if ( strlen ( $str > 0  ) ){
+			if ( strlen ( $str > '0'  ) ){
 
 				// REMOVE EXTERA SPACE BEGIN STRING 
-				$string =  trim( $str, " \t\n\r\0\x0B-" );
+				$string =  trim( $str );
 				
 				// Remove HTML tags and all characters with ASCII value > 127
 				$string = filter_var($string, FILTER_SANITIZE_STRING , FILTER_FLAG_STRIP_HIGH);
@@ -113,6 +113,23 @@
 				return $string;
 
 			} 
+			
+		}
+		
+	}
+	
+	function is_number( $numb ){
+		
+		// Check not empty value.
+		if(isset( $numb ) ){
+			
+			// check numberic number 
+			if ( is_numeric( $numb ) ) {
+				
+				// remove other string and return 
+				return is_str( $numb );
+				
+			}
 			
 		}
 		
